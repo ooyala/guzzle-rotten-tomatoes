@@ -1,0 +1,6 @@
+.DS_Store
+phpunit.xml
+composer.phar
+composer.lock
+vendor
+*.phar

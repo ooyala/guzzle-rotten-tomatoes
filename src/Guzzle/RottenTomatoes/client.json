@@ -1,0 +1,84 @@
+{
+    "name": "Rotten Tomatoes API",
+    "baseUrl": "http://api.rottentomatoes.com/api/public/v1.0/?apikey={{apikey}}",
+    "operations": {
+        "SearchMovies": {
+            "httpMethod": "GET",
+            "uri": "movies.json",
+            "summary": "The movies search endpoint for plain text queries. Let's you search for movies!",
+            "parameters": {
+                "q": {
+                    "location": "query",
+                    "description": "The plain text search query to search for a movie."
+                },
+                "page_limit": {
+                    "location": "query",
+                    "description": "The amount of movie search results to show per page."
+                },
+                "page": {
+                    "location": "query",
+                    "description": "The selected page of movie search results."
+                }
+            },
+            "responseClass": "SearchMoviesOutput"
+        },
+        "MovieInfo": {
+            "httpMethod": "GET",
+            "uri": "movies/{id}.json",
+            "summary": "Detailed information on a specific movie specified by Id. You can use the movies search endpoint or peruse the lists of movies/dvds to get the urls to movies.",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "description": "Movie ID. You can use the movies search endpoint or peruse the lists of movies/dvds to get the Movie ID"
+                }
+            },
+            "responseClass": "MovieInfoOutput"
+        }
+    },
+    "models": {
+        "Movie": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "location": "json",
+                    "type": "integer"
+                },
+                "title": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "year": {
+                    "location": "json",
+                    "type": "integer"
+                },
+                "runtime": {
+                    "location": "json",
+                    "type": "integer"
+                },
+                "synopsis": {
+                    "location": "json",
+                    "type": "string"
+                }
+            }
+        },
+        "SearchMoviesOutput": {
+            "type": "object",
+            "properties": {
+                "total": {
+                    "type": "integer",
+                    "location": "json"
+                },
+                "movies": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "Movie"
+                    }
+                }
+            }
+        },
+        "MovieInfoOutput": {
+            "$ref": "Movie"
+        }
+    }
+}
